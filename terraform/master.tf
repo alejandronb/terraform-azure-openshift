@@ -62,7 +62,7 @@ resource "azurerm_network_security_rule" "master-8443" {
 }
 
 resource "azurerm_network_interface" "master" {
-  count                     = 3
+  count                     = 1 
   name                      = "openshift-master-nic-${count.index}"
   location                  = "${var.azure_location}"
   resource_group_name       = "${azurerm_resource_group.openshift.name}"
@@ -77,7 +77,7 @@ resource "azurerm_network_interface" "master" {
 }
 
 resource "azurerm_virtual_machine" "master" {
-  count                 = 3
+  count                 = 1
   name                  = "openshift-master-vm-${count.index}"
   location              = "${var.azure_location}"
   resource_group_name   = "${azurerm_resource_group.openshift.name}"

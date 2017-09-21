@@ -7,7 +7,7 @@ MASTER_DOMAIN=$3
 
 if [ ! -d "terraform-azure-openshift" ]; then
     echo "Cloning terraform-azure-openshift Github repo..."
-    git clone https://github.com/drhelius/terraform-azure-openshift.git
+    git clone https://github.com/alejandronb/terraform-azure-openshift.git
 fi
 
 cd terraform-azure-openshift

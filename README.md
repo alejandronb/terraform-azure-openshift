@@ -44,6 +44,8 @@ When finished, you will get the public IPs for the Bastion host and for both the
 
 In order to SSH into the Bastion host use the key in the ```certs``` folder.
 
+Forked from: https://github.com/drhelius/terraform-azure-openshift
+
 License
 -------
 MIT License
