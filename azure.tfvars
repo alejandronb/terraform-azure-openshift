@@ -1,4 +1,4 @@
-azure_client_id = "xxxxxx-xx-xx-xx-xxxxxxx"
+azure_client_id = "xxxadogijerpgjerpgoijereoigjroipgjeºxxx-xx-xx-xx-xxxxxxx"
 azure_tenant_id = "xxxxxx-xx-xx-xx-xxxxxxx"
 azure_client_secret = "xxxxxxxxxxxxxxx"
 azure_subscription_id = "xxxxxx-xx-xx-xx-xxxxxxx"
