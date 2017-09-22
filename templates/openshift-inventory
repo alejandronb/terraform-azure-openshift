@@ -48,3 +48,4 @@ master0 openshift_hostname=master0 openshift_node_labels="{'role':'master','zone
 infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 #infra1 openshift_hostname=infra1 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 #infra2 openshift_hostname=infra2 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
+# The nodes with app role will be add using install.sh script
