@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: entire 
   become: yes
   roles:
     - host-preparation
