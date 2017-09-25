@@ -33,6 +33,10 @@ openshift_use_dnsmasq=true
 #master1 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 #master2 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 
+[masters:vars]
+openshift_public_hostname=###MASTER_DOMAIN###
+openshift_schedulable=false
+
 [etcd]
 #master0
 #master1
