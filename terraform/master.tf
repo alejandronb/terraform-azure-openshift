@@ -127,8 +127,8 @@ resource "azurerm_virtual_machine" "master" {
     masters = "",
     etcd = "",
     role = "master",
-    zone: "default",
-    logging: "true"
+    zone = "default",
+    logging = "true"
   }
 
 

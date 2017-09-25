@@ -17,7 +17,7 @@ chmod 600 certs/*
 cp -f certs/openshift.key ansible/openshift.key
 cp -f templates/host-preparation-inventory ansible/inventory/hosts
 # This line is testing
-cp -f templates/azure_rm.* /ansible/inventory/
+cp -f templates/azure_rm.* ansible/inventory/
 
 NODE_MAX_INDEX=$((NODE_COUNT-1))
 sed -i "s/###NODE_COUNT###/$NODE_MAX_INDEX/g" ansible/inventory/hosts
