@@ -89,6 +89,18 @@ resource "azurerm_virtual_machine" "bastion" {
     }
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir -p ~/.azure",
+    ]
+    connection {
+      type        = "ssh"
+      host        = "${azurerm_public_ip.bastion.ip_address}"
+      user        = "${var.admin_user}"
+      private_key = "${file("${path.module}/../certs/bastion.key")}"
+    }
+  }
+
 # Copying credentials file
   provisioner "file" {
     source        = "~/.azure/credentials"

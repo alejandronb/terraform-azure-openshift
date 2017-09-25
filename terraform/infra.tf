@@ -151,6 +151,7 @@ resource "azurerm_virtual_machine" "infra" {
   }
   tags {
     infra = "",
+    nodes = "",
     role = "infa",
     zone = "default",
     logging = "true"

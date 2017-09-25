@@ -127,6 +127,7 @@ resource "azurerm_virtual_machine" "master" {
   tags {
     masters = "",
     etcd = "",
+    nodes = "",
     role = "master",
     zone = "default",
     logging = "true"
