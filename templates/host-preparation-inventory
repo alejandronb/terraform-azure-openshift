@@ -9,12 +9,15 @@
 [nodes]
 #node[0:###NODE_COUNT###] ansible_user=###ADMIN_USER###
 #node0 ansible_user=###ADMIN_USER###
+[bastion]
 
-[all:children]
+[entire:children]
 masters
 infra
 nodes
 
-[all:vars]
+[entire:vars]
 ansible_user=###ADMIN_USER###
 
+[bastion:vars]
+ansible_connection=local
