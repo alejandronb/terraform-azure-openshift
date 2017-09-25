@@ -29,12 +29,12 @@ openshift_portal_net="172.30.0.0/16"
 openshift_use_dnsmasq=true
 
 [masters]
-master0 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
+#master0 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 #master1 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 #master2 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 
 [etcd]
-master0
+#master0
 #master1
 #master2
 
@@ -42,7 +42,9 @@ master0
 [new_masters]
 
 [nodes]
-master0 openshift_hostname=master0 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
+#master0 openshift_hostname=master0 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
+
+
 #master1 openshift_hostname=master1 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
 #master2 openshift_hostname=master2 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
 infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"

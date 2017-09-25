@@ -123,4 +123,13 @@ resource "azurerm_virtual_machine" "master" {
       key_data = "${file("${path.module}/../certs/openshift.pub")}"
     }
   }
+  tags {
+    masters = "",
+    etcd = "",
+    role = "master",
+    zone: "default",
+    logging: "true"
+  }
+
+
 }

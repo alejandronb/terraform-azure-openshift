@@ -65,4 +65,7 @@ resource "azurerm_virtual_machine" "node" {
       key_data = "${file("${path.module}/../certs/openshift.pub")}"
     }
   }
+  tags {
+    nodes = ""
+  }
 }

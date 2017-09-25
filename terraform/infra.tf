@@ -148,4 +148,10 @@ resource "azurerm_virtual_machine" "infra" {
       key_data = "${file("${path.module}/../certs/openshift.pub")}"
     }
   }
+  tags {
+    infra = "",
+    role = "infa",
+    zone: "default",
+    logging: "true"
+  }
 }

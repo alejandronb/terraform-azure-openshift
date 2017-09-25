@@ -16,12 +16,19 @@ git pull
 chmod 600 certs/*
 cp -f certs/openshift.key ansible/openshift.key
 cp -f templates/host-preparation-inventory ansible/inventory/hosts
+# This line is testing
+cp -f templates/azure_rm.* /ansible/inventory/
+
 NODE_MAX_INDEX=$((NODE_COUNT-1))
 sed -i "s/###NODE_COUNT###/$NODE_MAX_INDEX/g" ansible/inventory/hosts
 sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" ansible/inventory/hosts
 
 cd ansible
-ansible-playbook -i inventory/hosts host-preparation.yml
+# This is working
+#ansible-playbook -i inventory/hosts host-preparation.yml
+# Testing dynamic inventory
+ansible-playbook -i inventory/ host-preparation.yml
+
 cd ../..
 
 if [ ! -d "openshift-ansible" ]; then
@@ -32,17 +39,23 @@ fi
 cd openshift-ansible
 git pull
 cp -f ../terraform-azure-openshift/certs/openshift.key openshift.key
-cp -f ../terraform-azure-openshift/templates/openshift-inventory openshift-inventory
+cp -f ../terraform-azure-openshift/templates/openshift-inventory inventory/openshift-inventory
+# This line is testing
+cp -f ../terraform-azure-openshift/templates/azure_rm.* inventory/
 
 INDEX=0
 while [ $INDEX -lt $NODE_COUNT ]; do
-  printf "node$INDEX openshift_hostname=node$INDEX openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}\"\n" >> openshift-inventory
+  printf "node$INDEX openshift_hostname=node$INDEX openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}\"\n" >> inventory/openshift-inventory
   let INDEX=INDEX+1
 done
 
-sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" openshift-inventory
-sed -i "s/###MASTER_DOMAIN###/$MASTER_DOMAIN/g" openshift-inventory
-ansible-playbook --private-key=openshift.key -i openshift-inventory playbooks/byo/config.yml
+sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" inventory/openshift-inventory
+sed -i "s/###MASTER_DOMAIN###/$MASTER_DOMAIN/g" inventory/openshift-inventory
+# This line works
+#ansible-playbook --private-key=openshift.key -i openshift-inventory playbooks/byo/config.yml
+# This is testing
+ansible-playbook --private-key=openshift.key -i inventory/ playbooks/byo/config.yml
+
 cd ..
 
 rm install.sh
