@@ -47,7 +47,7 @@ openshift_use_dnsmasq=true
 
 #master1 openshift_hostname=master1 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
 #master2 openshift_hostname=master2 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
-infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
+#infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 #infra1 openshift_hostname=infra1 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 #infra2 openshift_hostname=infra2 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 # The nodes with app role will be add using install.sh script
