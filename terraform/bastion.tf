@@ -64,7 +64,8 @@ resource "azurerm_virtual_machine" "bastion" {
   delete_data_disks_on_termination = true
 
   os_profile {
-    computer_name  = "bastion"
+#    computer_name  = "bastion"
+    computer_name = "openshift-bastion-vm"
     admin_username = "${var.admin_user}"
     admin_password = "${var.admin_password}"
   }
@@ -80,6 +81,18 @@ resource "azurerm_virtual_machine" "bastion" {
   provisioner "remote-exec" {
     script = "${path.module}/provision/bastion.sh"
 
+    connection {
+      type        = "ssh"
+      host        = "${azurerm_public_ip.bastion.ip_address}"
+      user        = "${var.admin_user}"
+      private_key = "${file("${path.module}/../certs/bastion.key")}"
+    }
+  }
+
+# Copying credentials file
+  provisioner "file" {
+    source        = "~/.azure/credentials"
+    destination   = "~/.azure/credentials"
     connection {
       type        = "ssh"
       host        = "${azurerm_public_ip.bastion.ip_address}"

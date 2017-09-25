@@ -111,7 +111,8 @@ resource "azurerm_virtual_machine" "master" {
   delete_data_disks_on_termination = true
 
   os_profile {
-    computer_name  = "master${count.index}"
+#    computer_name  = "master${count.index}"
+    computer_name = "openshift-master-vm-${count.index"
     admin_username = "${var.admin_user}"
     admin_password = "${var.admin_password}"
   }

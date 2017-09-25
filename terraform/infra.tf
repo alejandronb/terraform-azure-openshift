@@ -136,7 +136,8 @@ resource "azurerm_virtual_machine" "infra" {
   delete_data_disks_on_termination = true
 
   os_profile {
-    computer_name  = "infra${count.index}"
+#    computer_name  = "infra${count.index}"
+    computer_name = "openshift-infrastructure-vm-${count.index}"
     admin_username = "${var.admin_user}"
     admin_password = "${var.admin_password}"
   }

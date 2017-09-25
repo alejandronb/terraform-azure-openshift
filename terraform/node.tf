@@ -53,7 +53,8 @@ resource "azurerm_virtual_machine" "node" {
   delete_data_disks_on_termination = true
 
   os_profile {
-    computer_name  = "node${count.index}"
+#    computer_name  = "node${count.index}"
+    computer_name   = "openshift-node-vm-${count.index}"
     admin_username = "${var.admin_user}"
     admin_password = "${var.admin_password}"
   }
