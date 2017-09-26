@@ -70,4 +70,4 @@ app
 [app]
 
 [app:vars]
-openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}
+openshift_node_labels="{'role':'app','zone':'default','logging':'true'}
