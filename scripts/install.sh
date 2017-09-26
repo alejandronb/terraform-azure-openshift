@@ -59,7 +59,7 @@ sed -i "s/###MASTER_DOMAIN###/$MASTER_DOMAIN/g" inventory/dinventory/openshift-i
 # This line works
 #ansible-playbook --private-key=openshift.key -i openshift-inventory playbooks/byo/config.yml
 # This is testing
-ansible-playbook --private-key=openshift.key -i inventory/dinventory/ playbooks/byo/config.yml -vvv
+ansible-playbook --private-key=openshift.key -i inventory/dinventory/ playbooks/byo/config.yml
 
 cd ..
 
