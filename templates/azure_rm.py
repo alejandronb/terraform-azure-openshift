@@ -543,8 +543,8 @@ class AzureInventory(object):
                 provisioning_state=machine.provisioning_state,
             )
             
-            for key,value in machine.tags.items():
-              host_vars[key]=value
+            #for key,value in machine.tags.items():
+            #  host_vars[key]=value
 
 
 
