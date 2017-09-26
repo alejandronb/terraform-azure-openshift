@@ -48,18 +48,18 @@ cp -f ../terraform-azure-openshift/templates/openshift-inventory inventory/dinve
 # This line is testing
 cp -f ../terraform-azure-openshift/templates/azure_rm.* inventory/dinventory/
 
-INDEX=0
-while [ $INDEX -lt $NODE_COUNT ]; do
-  printf "node$INDEX openshift_hostname=node$INDEX openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}\"\n" >> inventory/dinventory/openshift-inventory
-  let INDEX=INDEX+1
-done
+#INDEX=0
+#while [ $INDEX -lt $NODE_COUNT ]; do
+#  printf "node$INDEX openshift_hostname=node$INDEX openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}\"\n" >> inventory/dinventory/openshift-inventory
+#  let INDEX=INDEX+1
+#done
 
 sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" inventory/dinventory/openshift-inventory
 sed -i "s/###MASTER_DOMAIN###/$MASTER_DOMAIN/g" inventory/dinventory/openshift-inventory
 # This line works
 #ansible-playbook --private-key=openshift.key -i openshift-inventory playbooks/byo/config.yml
 # This is testing
-ansible-playbook --private-key=openshift.key -i inventory/dinventory/ playbooks/byo/config.yml
+ansible-playbook --private-key=openshift.key -i inventory/dinventory/ playbooks/byo/config.yml -vvv
 
 cd ..
 
