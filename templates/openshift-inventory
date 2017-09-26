@@ -68,3 +68,6 @@ app
 # The nodes with app role will be add using install.sh script
 
 [app]
+
+[app:vars]
+openshift_node_labels=\"{'role':'app','zone':'default','logging':'true'}
