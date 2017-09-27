@@ -67,6 +67,7 @@ resource "azurerm_virtual_machine" "node" {
     }
   }
   tags {
-    nodes = ""
+#    nodes = ""  
+    app = "" 
   }
 }

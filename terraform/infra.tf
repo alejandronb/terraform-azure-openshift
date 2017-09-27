@@ -150,10 +150,10 @@ resource "azurerm_virtual_machine" "infra" {
     }
   }
   tags {
-    infra = "",
-    nodes = "",
-    role = "infra",
-    zone = "default",
-    logging = "true"
+    infra = ""
+#    nodes = "",
+#    role = "infra",
+#    zone = "default",
+#    logging = "true"
   }
 }
