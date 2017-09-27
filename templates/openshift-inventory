@@ -1,72 +1,36 @@
+# Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
-#masters
+masters
 nodes
-etcd
-new_nodes
-new_masters
 
+# Set variables common for all OSEv3 hosts
 [OSEv3:vars]
+# SSH user, this user should allow ssh based auth without requiring a password
 ansible_ssh_user=###ADMIN_USER###
+
+# If ansible_ssh_user is not root, ansible_become must be set to true
 ansible_become=true
 
 openshift_deployment_type=origin
 
-openshift_disable_check=disk_availability,memory_availability
-openshift_override_hostname_check=true
+# uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
+#openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
-#openshift_master_named_certificates=[{"certfile": "/home/nacho/ssl/config/live/openshift.gq/fullchain.pem", "keyfile": "/home/nacho/ssl/config/live/openshift.gq/privkey.pem"}]
-#openshift_master_overwrite_named_certificates=true
-
-openshift_hosted_router_replicas=1
-openshift_hosted_registry_replicas=1
-openshift_router_selector='role=infra'
-openshift_registry_selector='role=infra'
-osm_default_node_selector="role=app"
-
-osm_cluster_network_cidr="10.128.0.0/14"
-osm_host_subnet_length=9
-openshift_portal_net="172.30.0.0/16"
-openshift_use_dnsmasq=true
-
+# host group for masters
 [masters]
-#master0 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
-#master1 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
-#master2 openshift_node_labels="{'role': 'master'}" openshift_public_hostname=###MASTER_DOMAIN###
 
-[masters:vars]
-openshift_public_hostname=###MASTER_DOMAIN###
-openshift_schedulable=false
-openshift_node_labels="{'role':'master','zone':'default','logging':'true'}"
-
-
+# host group for etcd
 [etcd]
-#master0
-#master1
-#master2
 
-
-[infra]
-
-[infra:vars]
-openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
-
-[new_nodes]
-[new_masters]
-
+# host group for nodes, includes region info
 [nodes:children]
 masters
-infra
 app
-
-#master0 openshift_hostname=master0 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
-#master1 openshift_hostname=master1 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
-#master2 openshift_hostname=master2 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
-#infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
-#infra1 openshift_hostname=infra1 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
-#infra2 openshift_hostname=infra2 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
-# The nodes with app role will be add using install.sh script
+infra
 
 [app]
-
 [app:vars]
-openshift_node_labels="{'role':'app','zone':'default','logging':'true'}
+openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
+[infra]
+[infra:vars]
+openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
