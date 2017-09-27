@@ -25,6 +25,8 @@ cd ..
 echo "Transfering private key to bastion server..."
 scp -o StrictHostKeychecking=no -i certs/bastion.key certs/openshift.key $ADMIN_USER@$BASTION_IP:/home/openshift/.ssh/id_rsa
 
+#ssh-copy-id -f -i certs/openshift.pub $ADMIN_USER@$BASTION_IP
+
 echo "Transfering install script to bastion server..."
 scp -o StrictHostKeychecking=no -i certs/bastion.key scripts/install.sh $ADMIN_USER@$BASTION_IP:/home/openshift/install.sh
 
