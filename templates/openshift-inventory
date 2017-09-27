@@ -2,8 +2,6 @@
 masters
 nodes
 etcd
-infra
-app
 new_nodes
 new_masters
 
@@ -59,9 +57,8 @@ openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
 masters
 infra
 app
+
 #master0 openshift_hostname=master0 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
-
-
 #master1 openshift_hostname=master1 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
 #master2 openshift_hostname=master2 openshift_node_labels="{'role':'master','zone':'default','logging':'true'}" openshift_schedulable=false
 #infra0 openshift_hostname=infra0 openshift_node_labels="{'role': 'infra', 'zone': 'default','logging':'true'}"
