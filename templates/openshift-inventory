@@ -1,5 +1,5 @@
 [OSEv3:children]
-masters
+#masters
 nodes
 etcd
 new_nodes
