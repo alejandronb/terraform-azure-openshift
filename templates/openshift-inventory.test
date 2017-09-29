@@ -20,10 +20,10 @@ openshift_disable_check=disk_availability,memory_availability
 
 # host group for masters
 [masters]
-
+openshift-master-vm-0
 # host group for etcd
 [etcd]
-
+openshift-master-vm-0
 # host group for nodes, includes region info
 [nodes:children]
 masters
@@ -31,11 +31,10 @@ app
 infra
 
 [app]
-
+openshift-node-vm-0
 [app:vars]
 openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
-
 [infra]
-
+openshift-infraestructure-vm-0
 [infra:vars]
 openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
