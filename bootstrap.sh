@@ -12,6 +12,9 @@ terraform plan -out openshift.plan -var-file=../azure.tfvars -var-file=../bootst
 echo "Deploying Terraform plan..."
 terraform apply openshift.plan
 
+echo "Creating openshift inventory"
+terraform output ansible_hosts > ../templates/openshift-inventory
+
 echo "Getting output variables..."
 BASTION_IP=$(terraform output bastion_public_ip)
 SERVICE_IP=$(terraform output service_public_ip)
@@ -24,8 +27,6 @@ cd ..
 
 echo "Transfering private key to bastion server..."
 scp -o StrictHostKeychecking=no -i certs/bastion.key certs/openshift.key $ADMIN_USER@$BASTION_IP:/home/openshift/.ssh/id_rsa
-
-#ssh-copy-id -f -i certs/openshift.pub $ADMIN_USER@$BASTION_IP
 
 echo "Transfering install script to bastion server..."
 scp -o StrictHostKeychecking=no -i certs/bastion.key scripts/install.sh $ADMIN_USER@$BASTION_IP:/home/openshift/install.sh

@@ -62,7 +62,7 @@ resource "azurerm_network_security_rule" "master-8443" {
 }
 
 resource "azurerm_network_interface" "master" {
-  count                     = 1 
+  count                     = 1
   name                      = "openshift-master-nic-${count.index}"
   location                  = "${var.azure_location}"
   resource_group_name       = "${azurerm_resource_group.openshift.name}"
@@ -112,7 +112,8 @@ resource "azurerm_virtual_machine" "master" {
 
   os_profile {
 #    computer_name  = "master${count.index}"
-    computer_name = "openshift-master-vm-${count.index}"
+    computer_name  = "openshift-master-vm-${count.index}"
+#    computer_name = "openshift-master-vm-${azurerm_virtual_machine.count.index}"
     admin_username = "${var.admin_user}"
     admin_password = "${var.admin_password}"
   }
@@ -132,6 +133,51 @@ resource "azurerm_virtual_machine" "master" {
 #    zone = "default",
 #    logging = "true"
   }
-
-
 }
+
+resource "template_file" "master_ansible" {
+  count = 1 
+  template = "${file("hostname.tpl")}"
+  vars {
+    index = "${count.index + 1}"
+    name  = "openshift-master-vm"
+  }
+}
+
+
+resource "template_file" "infra_ansible" {
+  count = 1
+  template = "${file("hostname.tpl")}"
+  vars {
+    index = "${count.index + 1}"
+    name  = "openshift-infrastructure-vm"
+  }
+}
+
+
+resource "template_file" "node_ansible" {
+  count = 1
+  template = "${file("hostname.tpl")}"
+  vars {
+    index = "${count.index + 1}"
+    name  = "openshift-node-vm"
+  }
+}
+
+
+
+resource "template_file" "ansible_hosts" {
+  template = "${file("openshift-inventory.tpl")}"
+  vars {
+    master_hosts   = "${join("\n",template_file.master_ansible.*.rendered)}"
+    infra_hosts    = "${join("\n",template_file.infra_ansible.*.rendered)}"
+    app_hosts     = "${join("\n",template_file.node_ansible.*.rendered)}"
+  }
+}
+
+output "ansible_hosts" {
+        value = "${template_file.ansible_hosts.rendered}"
+}
+
+
+

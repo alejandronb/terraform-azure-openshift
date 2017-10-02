@@ -1,7 +1,7 @@
 # Create an OSEv3 group that contains the masters and nodes groups
 [OSEv3:children]
-masters
 nodes
+masters
 
 # Set variables common for all OSEv3 hosts
 [OSEv3:vars]
@@ -18,23 +18,29 @@ openshift_disable_check=disk_availability,memory_availability
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 #openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 
+
 # host group for masters
 [masters]
-openshift-master-vm-0
+${master_hosts}
+
 # host group for etcd
 [etcd]
-openshift-master-vm-0
-# host group for nodes, includes region info
-[nodes:children]
-masters
-app
-infra
+${master_hosts}
 
 [app]
-openshift-node-vm-0
+${app_hosts}
+
+[infra]
+${infra_hosts}
+
+# host group for nodes, includes region info
+[nodes:children]
+app
+infra
+masters
+
 [app:vars]
 openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
-[infra]
-openshift-infraestructure-vm-0
+
 [infra:vars]
 openshift_node_labels="{'region': 'infra', 'zone': 'default'}"
