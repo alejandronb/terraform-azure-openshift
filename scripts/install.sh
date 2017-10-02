@@ -41,7 +41,10 @@ git pull
 cp -f ../terraform-azure-openshift/certs/openshift.key openshift.key
 #mkdir -p inventory/dinventory
 # This line is working
-cp -f ../terraform-azure-openshift/templates/openshift-inventory inventory/openshift-inventory
+#cp -f ../terraform-azure-openshift/templates/openshift-inventory inventory/openshift-inventory
+#This line is testing
+cp -f ../openshift-inventory inventory/openshift-inventory
+
 # This line is testing
 #cp -f ../terraform-azure-openshift/templates/openshift-inventory inventory/dinventory/openshift-inventory
 

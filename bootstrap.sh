@@ -31,6 +31,9 @@ scp -o StrictHostKeychecking=no -i certs/bastion.key certs/openshift.key $ADMIN_
 echo "Transfering install script to bastion server..."
 scp -o StrictHostKeychecking=no -i certs/bastion.key scripts/install.sh $ADMIN_USER@$BASTION_IP:/home/openshift/install.sh
 
+echo "Transfering inventory to bastion server..."
+scp -o StrictHostKeychecking=no -i certs/bastion.key templates/openshift-inventory $ADMIN_USER@$BASTION_IP:/home/openshift/openshift-inventory
+
 echo "Running install script on bastion server..."
 ssh -t -o StrictHostKeychecking=no -i certs/bastion.key $ADMIN_USER@$BASTION_IP ./install.sh $NODE_COUNT $ADMIN_USER $MASTER_DOMAIN
 
