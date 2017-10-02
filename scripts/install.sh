@@ -60,7 +60,7 @@ cp -f ../openshift-inventory inventory/openshift-inventory
 sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" inventory/openshift-inventory
 sed -i "s/###MASTER_DOMAIN###/$MASTER_DOMAIN/g" inventory/openshift-inventory
 # This line works
-ansible-playbook --private-key=openshift.key -i openshift-inventory playbooks/byo/config.yml
+ansible-playbook --private-key=openshift.key -i inventory/openshift-inventory playbooks/byo/config.yml
 # This is testing
 #ansible-playbook --private-key=openshift.key -i inventory/dinventory/ playbooks/byo/config.yml
 
