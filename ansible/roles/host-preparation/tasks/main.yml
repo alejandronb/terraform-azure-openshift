@@ -20,7 +20,7 @@
     state: directory
     recurse: yes
 
-- name: Ensure /etc/origin/node/resolv.conf exists
-  file:
-    path: /etc/origin/node/resolv.conf
-    state: touch
+#- name: Ensure /etc/origin/node/resolv.conf exists
+#  file:
+#    path: /etc/origin/node/resolv.conf
+#    state: touch
