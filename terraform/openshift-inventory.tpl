@@ -12,8 +12,10 @@ ansible_ssh_user=###ADMIN_USER###
 ansible_become=true
 
 openshift_deployment_type=origin
-
 openshift_disable_check=disk_availability,memory_availability
+openshift_public_hostname=###MASTER_DOMAIN###
+openshift_master_default_subdomain=###MASTER_DOMAIN###
+openshift_use_dnsmasq=false
 
 # uncomment the following to enable htpasswd authentication; defaults to DenyAllPasswordIdentityProvider
 #openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
