@@ -25,6 +25,11 @@
 #    path: /etc/origin/node/resolv.conf
 #    state: touch
 
+- name: Adding node ip to /etc/resolv.conf
+  lineinfile:
+    path: /etc/resolv.conf
+    line: "{{ ansible_default_ipv4.address }}"
+
 - name: Ansible copy files remote to remote
   copy:
     src: /etc/resolv.conf
