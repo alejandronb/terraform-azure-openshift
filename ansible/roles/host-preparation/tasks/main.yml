@@ -28,9 +28,9 @@
 - name: Adding node ip to /etc/resolv.conf
   lineinfile:
     path: /etc/resolv.conf
-    line: "{{ ansible_default_ipv4.address }}"
+    line: "nameserver {{ ansible_default_ipv4.address }}"
 
-- name: Ansible copy files remote to remote
+- name: Copy resolv.conf files
   copy:
     src: /etc/resolv.conf
     dest: /etc/origin/node/resolv.conf
