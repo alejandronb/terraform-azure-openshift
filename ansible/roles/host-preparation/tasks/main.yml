@@ -30,8 +30,15 @@
 #    path: /etc/resolv.conf
 #    line: "nameserver {{ ansible_default_ipv4.address }}"
 #
-- name: Copy resolv.conf files
-  copy:
-    src: /etc/resolv.conf
-    dest: /etc/origin/node/resolv.conf
-    remote_src: yes
+#- name: Copy resolv.conf files
+#  copy:
+#    src: /etc/resolv.conf
+#    dest: /etc/origin/node/resolv.conf
+#    remote_src: yes
+
+- name: Ensure network interface is managed by NetworkManager
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^NM_CONTROLLED='
+    line: 'NM_CONTROLLED=yes'
+  notify: restart network
