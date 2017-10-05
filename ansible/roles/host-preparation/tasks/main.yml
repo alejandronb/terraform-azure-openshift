@@ -25,11 +25,11 @@
 #    path: /etc/origin/node/resolv.conf
 #    state: touch
 
-- name: Adding node ip to /etc/resolv.conf
-  lineinfile:
-    path: /etc/resolv.conf
-    line: "nameserver {{ ansible_default_ipv4.address }}"
-
+#- name: Adding node ip to /etc/resolv.conf
+#  lineinfile:
+#    path: /etc/resolv.conf
+#    line: "nameserver {{ ansible_default_ipv4.address }}"
+#
 - name: Copy resolv.conf files
   copy:
     src: /etc/resolv.conf
