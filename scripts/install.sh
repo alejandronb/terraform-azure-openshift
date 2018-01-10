@@ -25,9 +25,9 @@ sed -i "s/###ADMIN_USER###/$ADMIN_USER/g" ansible/inventory/hosts
 
 cd ansible
 # This is working
-#ansible-playbook -i inventory/hosts host-preparation.yml
+ansible-playbook -i inventory/hosts host-preparation.yml
 # Testing dynamic inventory
-ansible-playbook -i inventory/ host-preparation.yml
+#ansible-playbook -i inventory/ host-preparation.yml
 
 cd ../..
 
@@ -38,6 +38,7 @@ fi
 
 cd openshift-ansible
 git pull
+git checkout release-3.7
 cp -f ../terraform-azure-openshift/certs/openshift.key openshift.key
 #mkdir -p inventory/dinventory
 # This line is working
