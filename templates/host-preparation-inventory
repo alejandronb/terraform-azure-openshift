@@ -1,17 +1,17 @@
 [masters]
 #master[0:2] ansible_user=###ADMIN_USER###
 #master0 ansible_user=###ADMIN_USER###
-openshift-master-vm-0
+openshift-master-vm-0 ansible_user=###ADMIN_USER###
 
 [infra]
 #infra[0:2] ansible_user=###ADMIN_USER###
 #infra0 ansible_user=###ADMIN_USER###
-openshift-infrastructure-vm-0
+openshift-infrastructure-vm-0 ansible_user=###ADMIN_USER###
 
 [bastion]
 
 [app]
-openshift-node-vm-0
+openshift-node-vm-0 ansible_user=###ADMIN_USER###
 
 [nodes:children]
 masters
