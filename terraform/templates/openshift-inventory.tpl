@@ -13,8 +13,7 @@ ansible_become=true
 
 openshift_deployment_type=origin
 openshift_disable_check=disk_availability,memory_availability
-openshift_public_hostname=###MASTER_DOMAIN###
-openshift_master_default_subdomain=###MASTER_DOMAIN###
+#openshift_master_default_subdomain=###MASTER_DOMAIN###
 openshift_use_dnsmasq=true
 openshift_override_hostname_check=true
 
@@ -25,17 +24,17 @@ openshift_override_hostname_check=true
 
 # host group for masters
 [masters]
-${master_hosts}
+${master_hosts} openshift_public_hostname=###MASTER_DOMAIN###
 
 # host group for etcd
 [etcd]
 ${master_hosts}
 
 [app]
-${app_hosts}
+${app_hosts} openshift_hostname=${app_hosts}
 
 [infra]
-${infra_hosts}
+${infra_hosts} openshift_hostname=${infra_hosts}
 
 # host group for nodes, includes region info
 [nodes:children]
