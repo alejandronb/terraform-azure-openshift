@@ -67,10 +67,12 @@ resource "azurerm_network_interface" "master" {
   location                  = "${var.azure_location}"
   resource_group_name       = "${azurerm_resource_group.openshift.name}"
   network_security_group_id = "${azurerm_network_security_group.master.id}"
+  internal_dns_name_label   = "openshift-master-vm-${count.index}"
 
   ip_configuration {
     name                                    = "default"
-    subnet_id                               = "${azurerm_subnet.master.id}"
+    #b subnet_id                               = "${azurerm_subnet.master.id}"
+    subnet_id                               = "${azurerm_subnet.openshift.id}"
     private_ip_address_allocation           = "dynamic"
     load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.master.id}"]
   }
@@ -136,10 +138,10 @@ resource "azurerm_virtual_machine" "master" {
 }
 
 resource "template_file" "master_ansible" {
-  count = 1 
-  template = "${file("hostname.tpl")}"
+  count = 1
+  template = "${file("templates/hostname.tpl")}"
   vars {
-    index = "${count.index + 1}"
+    index = "${count.index}"
     name  = "openshift-master-vm"
   }
 }
@@ -147,9 +149,9 @@ resource "template_file" "master_ansible" {
 
 resource "template_file" "infra_ansible" {
   count = 1
-  template = "${file("hostname.tpl")}"
+  template = "${file("templates/hostname.tpl")}"
   vars {
-    index = "${count.index + 1}"
+    index = "${count.index}"
     name  = "openshift-infrastructure-vm"
   }
 }
@@ -157,9 +159,9 @@ resource "template_file" "infra_ansible" {
 
 resource "template_file" "node_ansible" {
   count = 1
-  template = "${file("hostname.tpl")}"
+  template = "${file("templates/hostname.tpl")}"
   vars {
-    index = "${count.index + 1}"
+    index = "${count.index}"
     name  = "openshift-node-vm"
   }
 }
@@ -167,17 +169,14 @@ resource "template_file" "node_ansible" {
 
 
 resource "template_file" "ansible_hosts" {
-  template = "${file("openshift-inventory.tpl")}"
+  template = "${file("templates/openshift-inventory.tpl")}"
   vars {
-    master_hosts   = "${join("\n",template_file.master_ansible.*.rendered)}"
-    infra_hosts    = "${join("\n",template_file.infra_ansible.*.rendered)}"
-    app_hosts     = "${join("\n",template_file.node_ansible.*.rendered)}"
+    master_hosts   = "${join("\n",template_file.master_ansible.*.rendered,openshift_hostname=openshift-master-vm-0)}"
+    infra_hosts    = "${join("\n",template_file.infra_ansible.*.rendered,openshift_hostname=openshift-infra-vm-0)}"
+    app_hosts     = "${join("\n",template_file.node_ansible.*.rendered,openshift_hostname=openshift-node-vm-0)}"
   }
 }
 
 output "ansible_hosts" {
         value = "${template_file.ansible_hosts.rendered}"
 }
-
-
-

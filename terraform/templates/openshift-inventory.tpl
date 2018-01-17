@@ -42,6 +42,8 @@ app
 infra
 masters
 
+[masters:vars]
+
 [app:vars]
 openshift_node_labels="{'region': 'primary', 'zone': 'default'}"
 
